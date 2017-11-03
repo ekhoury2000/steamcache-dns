@@ -47,6 +47,30 @@ if [ "$USE_GENERIC_CACHE" = "true" ]; then
 		if [ -z "$WINDOWSCACHE_IP" ] && ! [ "$DISABLE_WINDOWS" = "true" ]; then
 			WINDOWSCACHE_IP=$LANCACHE_IP
 		fi
+		if [ -z "$HIREZCACHE_IP" ] && ! [ "$DISABLE_HIREZ" = "true" ]; then
+			HIREZCACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$SONYCACHE_IP" ] && ! [ "$DISABLE_SONY" = "true" ]; then
+			SONYCACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$TERACACHE_IP" ] && ! [ "$DISABLE_TERA" = "true" ]; then
+			TERACACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$GOGCACHE_IP" ] && ! [ "$DISABLE_GOG" = "true" ]; then
+			GOGCACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$ARENACACHE_IP" ] && ! [ "$DISABLE_ARENA" = "true" ]; then
+			ARENACACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$APPLECACHE_IP" ] && ! [ "$DISABLE_APPLE" = "true" ]; then
+			APPLECACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$WARGAMINGCACHE_IP" ] && ! [ "$DISABLE_WARGAMING" = "true" ]; then
+			WARGAMINGCACHE_IP=$LANCACHE_IP
+		fi
+		if [ -z "$GLYPHCACHE_IP" ] && ! [ "$DISABLE_GLYPH" = "true" ]; then
+			GLYPHCACHE_IP=$LANCACHE_IP
+		fi
 	fi
 fi
 
@@ -102,6 +126,32 @@ if ! [ -z "$UPLAYCACHE_IP" ]; then
 	sed -i -e "s%#ENABLE_UPLAY#%%g" /etc/bind/cache.conf
 fi
 
+## Hirez
+if ! [ -z "$HIREZCACHE_IP" ]; then
+	echo "Enabling cache for Hirez"
+	cp /etc/bind/cache/hirez/template.db.hirez /etc/bind/cache/hirez/db.hirez
+	sed -i -e "s%{{ hirezcache_ip }}%$HIREZCACHE_IP%g" /etc/bind/cache/hirez/db.hirez
+	sed -i -e "s%#ENABLE_HIREZ#%%g" /etc/bind/cache.conf
+fi
+
+## Sony
+if ! [ -z "$SONYCACHE_IP" ]; then
+	echo "Enabling cache for Sony"
+	cp /etc/bind/cache/sony/template.db.sony /etc/bind/cache/sony/db.sony
+	sed -i -e "s%{{ sonycache_ip }}%$SONYCACHE_IP%g" /etc/bind/cache/sony/db.sony
+	sed -i -e "s%#ENABLE_SONY#%%g" /etc/bind/cache.conf
+fi
+
+
+## Tera
+if ! [ -z "$TERACACHE_IP" ]; then
+	echo "Enabling cache for Tera"
+	cp /etc/bind/cache/tera/template.db.tera /etc/bind/cache/tera/db.tera
+	sed -i -e "s%{{ teracache_ip }}%$TERACACHE_IP%g" /etc/bind/cache/tera/db.tera
+	sed -i -e "s%#ENABLE_TERA#%%g" /etc/bind/cache.conf
+fi
+
+
 ## windows
 if ! [ -z "$WINDOWSCACHE_IP" ]; then
 	echo "Enabling cache for Windows"
@@ -110,6 +160,46 @@ if ! [ -z "$WINDOWSCACHE_IP" ]; then
 	sed -i -e "s%#ENABLE_WINDOWS#%%g" /etc/bind/cache.conf
 fi
 
+
+## GOG
+if ! [ -z "$GOGCACHE_IP" ]; then
+	echo "Enabling cache for GOG"
+	cp /etc/bind/cache/gog/template.db.gog /etc/bind/cache/gog/db.gog
+	sed -i -e "s%{{ gogcache_ip }}%$GOGCACHE_IP%g" /etc/bind/cache/gog/db.gog
+	sed -i -e "s%#ENABLE_GOG#%%g" /etc/bind/cache.conf
+fi
+
+## Arena
+if ! [ -z "$ARENACACHE_IP" ]; then
+	echo "Enabling cache for Arena"
+	cp /etc/bind/cache/arena/template.db.arena /etc/bind/cache/arena/db.arena
+	sed -i -e "s%{{ arenacache_ip }}%$ARENACACHE_IP%g" /etc/bind/cache/arena/db.arena
+	sed -i -e "s%#ENABLE_ARENA#%%g" /etc/bind/cache.conf
+fi
+
+## Apple
+if ! [ -z "$APPLECACHE_IP" ]; then
+	echo "Enabling cache for Apple"
+	cp /etc/bind/cache/apple/template.db.apple /etc/bind/cache/apple/db.apple
+	sed -i -e "s%{{ applecache_ip }}%$APPLECACHE_IP%g" /etc/bind/cache/apple/db.apple
+	sed -i -e "s%#ENABLE_APPLE#%%g" /etc/bind/cache.conf
+fi
+
+## Wargaming
+if ! [ -z "$WARGAMINGCACHE_IP" ]; then
+	echo "Enabling cache for Wargaming"
+	cp /etc/bind/cache/wargaming/template.db.wargaming /etc/bind/cache/wargaming/db.wargaming
+	sed -i -e "s%{{ wargamingcache_ip }}%$WARGAMINGCACHE_IP%g" /etc/bind/cache/wargaming/db.wargaming
+	sed -i -e "s%#ENABLE_WARGAMING#%%g" /etc/bind/cache.conf
+fi
+
+## Glyph
+if ! [ -z "$GLYPHCACHE_IP" ]; then
+	echo "Enabling cache for Glyph"
+	cp /etc/bind/cache/glyph/template.db.glyph /etc/bind/cache/glyph/db.glyph
+	sed -i -e "s%{{ glyphcache_ip }}%$GLYPHCACHE_IP%g" /etc/bind/cache/glyph/db.glyph
+	sed -i -e "s%#ENABLE_GLYPH#%%g" /etc/bind/cache.conf
+fi
 
 echo "bootstrap finished."
 
